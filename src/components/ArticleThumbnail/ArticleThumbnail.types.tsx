@@ -1,4 +1,5 @@
 export type ArticleThumbnailProps = {
+  id: string;
   imagem: string;
   titulo: string;
   resumo: string;

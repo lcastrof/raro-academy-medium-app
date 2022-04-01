@@ -14,6 +14,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
   dataPublicacao,
 }) => {
   const mdParser = new MarkdownIt();
+  console.log(article)
   return (
     <>
       <header className="flex flex-row gap-3 items-center ml-20">
