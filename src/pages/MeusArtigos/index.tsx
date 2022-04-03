@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 
 import { ArticleList } from "../../components/ArticleList";
 import { ArticleThumbnailProps } from "../../components/ArticleThumbnail/ArticleThumbnail.types";
-import { geraArtigos } from "../../helpers/gerador-artigos";
+import apiClient from "../../services/api-client";
 
 export const MeusArtigosPage = () => {
   const [articles, setArticles] = useState<ArticleThumbnailProps[]>([]);
 
-  useEffect(() => {
-    setArticles(
-      geraArtigos(5).map((artigo) => ({ ...artigo, editavel: true }))
+  const buscaMeusArtigos = async () => {
+    const response = await apiClient.get<ArticleThumbnailProps[]>(
+      '/artigos/meus-artigos'
     );
+    setArticles(response.data);
+  }
+
+  useEffect(() => {
+    buscaMeusArtigos();
   }, []);
 
   return (
