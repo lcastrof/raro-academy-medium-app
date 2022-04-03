@@ -8,12 +8,18 @@ export const ArticleList: React.FC<ArticleListProps> = ({
   return (
     <div className="flex flex-col items-center justify-center m-10">
       {
-        articles.map(article => (
-          <ArticleThumbnail
-            key={ article.titulo }
-            {...article}
-          />
-        ))
+        articles.length === 0 ? (
+          <div className="text-center text-gray-500 text-lg">
+            Não existem artigos publicados
+          </div>
+        ) : (
+          articles.map(article => (
+            <ArticleThumbnail
+              key={ article.titulo }
+              {...article}
+            />
+          ))
+        )
       }
     </div>
   );

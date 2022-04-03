@@ -16,7 +16,7 @@ export const ArticleView: React.FC<ArticleViewProps> = ({
   const mdParser = new MarkdownIt();
   return (
     <>
-      <header className="flex flex-row gap-3 items-center ml-20">
+      <header className="flex flex-row gap-3 items-center ml-5">
         <img 
           src={ autor.avatar } 
           alt={`${autor.nome} avatar`}
