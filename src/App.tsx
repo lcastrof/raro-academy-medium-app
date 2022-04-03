@@ -7,6 +7,7 @@ import { MeusArtigosPage } from './pages/MeusArtigos';
 import { EditarArquivoPage } from './pages/EditarArquivo';
 import { NotFoundPage } from './pages/NotFound';
 import { Layout } from './components/Layout';
+import { RequireAuth } from './components/RequireAuth';
 
 function App() {
   return (
@@ -15,11 +16,14 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
 
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<ArtigosPage />} />
+        <Route index element={<ArtigosPage />} />
         <Route path="/artigo/:id" element={<ArtigoPage />} />
-        <Route path="/artigos" element={<MeusArtigosPage />} />
-        <Route path="/artigos/editar/:id" element={<EditarArquivoPage />} />
-        <Route path="/artigos/novo" element={<EditarArquivoPage />} />
+
+        <Route element={ <RequireAuth /> }>
+          <Route path="/artigos" element={<MeusArtigosPage />} />
+          <Route path="/artigos/editar/:id" element={<EditarArquivoPage />} />
+          <Route path="/artigos/novo" element={<EditarArquivoPage />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
