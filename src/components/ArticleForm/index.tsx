@@ -116,7 +116,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
           />
 
           <div className="flex gap-8 w-full">
-            {article && <Button type="submit" isDelete onClick={onDelete}>Deletar</Button>}
+            {article && <Button type="submit" color="red" onClick={onDelete}>Deletar</Button>}
             <Button type="submit">Salvar</Button>
           </div>
         </form>
