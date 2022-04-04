@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ArticleThumbnailProps } from "../../components/ArticleThumbnail/ArticleThumbnail.types";
 import { ArticleView } from "../../components/ArticleView";
 import { Spinner } from "../../components/Spinner";
@@ -27,7 +28,7 @@ export const ArtigoPage = () => {
         });
         setArticle(article);
       } catch (error) {
-        alert('Erro ao carregar artigo');
+        toast.error('Erro ao carregar artigo');
         console.log(error);
       } finally {
         setLoading(false);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import { ArticleList } from "../../components/ArticleList";
 import { ArticleThumbnailProps } from "../../components/ArticleThumbnail/ArticleThumbnail.types";
@@ -18,7 +19,7 @@ export const MeusArtigosPage = () => {
       );
       setArticles(response.data);
     } catch (error) {
-      alert('Erro ao carregar artigos');
+      toast.error('Erro ao carregar artigos');
       console.log(error);
     } finally {
       setLoading(false);
