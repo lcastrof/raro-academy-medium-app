@@ -22,9 +22,9 @@ export const EditarArquivoPage = () => {
         toast.success('Artigo atualizado com sucesso!');
         navigate(`/artigo/${artigo.id}`);
       } else {
-        await apiClient.post('/artigos', artigo);
+        const { data: novoArtigo } = await apiClient.post('/artigos', artigo);
         toast.success('Artigo criado com sucesso!');
-        navigate(`/artigo/${artigo.id}`);
+        navigate(`/artigo/${novoArtigo.id}`);
       }
     } catch (error) {
       console.log({ error });
