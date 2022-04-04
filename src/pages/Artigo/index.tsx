@@ -17,15 +17,21 @@ export const ArtigoPage = () => {
 
   useEffect(() => {
     async function loadArticle() {
-      setLoading(true);
-      const response = await apiClient.get<ArticleThumbnailProps>(`/artigos/${id}`);
-      const article = response.data.conteudo;
-      setAutor({ 
-        nome: response.data.autor.nome,
-        avatar: response.data.autor.avatar,
-      });
-      setArticle(article);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const response = await apiClient.get<ArticleThumbnailProps>(`/artigos/${id}`);
+        const article = response.data.conteudo;
+        setAutor({ 
+          nome: response.data.autor.nome,
+          avatar: response.data.autor.avatar,
+        });
+        setArticle(article);
+      } catch (error) {
+        alert('Erro ao carregar artigo');
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     }
     
     loadArticle();

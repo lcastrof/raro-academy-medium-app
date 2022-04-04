@@ -38,9 +38,9 @@ export const Login = () => {
       } else {
         setErro('Erro ao autenticar usuário. Tente novamente mais tarde.');
       }
+    } finally {
+      setLoading(false);
     }
-  
-    setLoading(false);
   }
 
   return (

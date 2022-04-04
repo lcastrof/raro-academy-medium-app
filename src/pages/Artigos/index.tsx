@@ -9,12 +9,18 @@ export const ArtigosPage = () => {
   const [loading, setLoading] = useState(false);
 
   const buscaArtigos = async () => {
-    setLoading(true);
-    const response = await apiClient.get<ArticleThumbnailProps[]>(
-      '/artigos'
-    );
-    setArticles(response.data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const response = await apiClient.get<ArticleThumbnailProps[]>(
+        '/artigos'
+      );
+      setArticles(response.data);
+    } catch (error) {
+      alert('Erro ao carregar artigos');
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
