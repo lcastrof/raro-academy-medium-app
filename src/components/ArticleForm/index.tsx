@@ -46,7 +46,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
         imagem,
         conteudo,
       };
-      onSubmit(articleToSubmit as ArticleThumbnailProps)
+      onSubmit(articleToSubmit as ArticleThumbnailProps);
     }
   }
 
@@ -116,7 +116,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
           />
 
           <div className="flex gap-8 w-full">
-            {article && <Button type="submit" color="red" onClick={onDelete}>Deletar</Button>}
+            {article && <Button type="button" color="red" onClick={onDelete}>Deletar</Button>}
             <Button type="submit">Salvar</Button>
           </div>
         </form>
