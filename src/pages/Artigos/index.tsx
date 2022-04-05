@@ -18,7 +18,7 @@ export const ArtigosPage = () => {
       setArticles(response.data);
     } catch (error) {
       toast.error('Erro ao carregar artigos');
-      console.log(error);
+      console.log({ error });
     } finally {
       setLoading(false);
     }

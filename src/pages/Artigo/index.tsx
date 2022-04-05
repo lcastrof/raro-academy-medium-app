@@ -29,7 +29,7 @@ export const ArtigoPage = () => {
         setArticle(article);
       } catch (error) {
         toast.error('Erro ao carregar artigo');
-        console.log(error);
+        console.log({ error });
       } finally {
         setLoading(false);
       }
