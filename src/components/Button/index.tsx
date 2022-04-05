@@ -3,17 +3,24 @@ import React from "react";
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type: "button" | "submit" | "reset" | undefined;
   disabled?: boolean;
-  isDelete?: boolean;
+  color?: 'blue' | 'red';
+};
+
+type ColorsType = {
+  [key: string]: string;
 };
 
 export const Button: React.FC<ButtonProps> = ({
   type,
   disabled,
-  isDelete = false,
+  color = 'blue',
   children,
   onClick,
 }) => {
-  const buttonColor = isDelete ? "red" : "blue"; 
+  const colorClasses: ColorsType = {
+    blue: 'border-b-blue-600 bg-blue-500 hover:bg-blue-400 active:border-b-blue-400',
+    red: 'border-b-red-600 bg-red-500 hover:bg-red-400 active:border-b-red-400',
+  }
   return (
     <button
       type={ type }
@@ -21,8 +28,8 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={ onClick }
       className={`
         w-full mt-6 tracking-widest
-        border-b-${buttonColor}-600 bg-${buttonColor}-500 py-3 text-white font-bold
-        hover:bg-${buttonColor}-400 active:translate-y-[0.125rem] active:border-b-${buttonColor}-400
+        py-3 text-white font-bold
+        ${colorClasses[color]}
       `}
     >
       { children }

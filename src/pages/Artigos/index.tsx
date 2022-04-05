@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { ArticleList } from "../../components/ArticleList";
 import { ArticleThumbnailProps } from "../../components/ArticleThumbnail/ArticleThumbnail.types";
 import { Spinner } from "../../components/Spinner";
@@ -9,12 +10,18 @@ export const ArtigosPage = () => {
   const [loading, setLoading] = useState(false);
 
   const buscaArtigos = async () => {
-    setLoading(true);
-    const response = await apiClient.get<ArticleThumbnailProps[]>(
-      '/artigos'
-    );
-    setArticles(response.data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const response = await apiClient.get<ArticleThumbnailProps[]>(
+        '/artigos'
+      );
+      setArticles(response.data);
+    } catch (error) {
+      toast.error('Erro ao carregar artigos');
+      console.log({ error });
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {

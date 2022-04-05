@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ArticleForm } from "../../components/ArticleForm";
 import { ArticleThumbnailProps } from "../../components/ArticleThumbnail/ArticleThumbnail.types";
 import apiClient from "../../services/api-client";
 
 export const EditarArquivoPage = () => {
   const [ artigo, setArtigo ] = useState<ArticleThumbnailProps>();
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -17,24 +19,27 @@ export const EditarArquivoPage = () => {
     try {
       if (artigo.id) {
         await apiClient.patch(`/artigos/${artigo.id}`, artigo);
-        alert('Artigo atualizado com sucesso!');
+        toast.success('Artigo atualizado com sucesso!');
+        navigate(`/artigo/${artigo.id}`);
       } else {
-        await apiClient.post('/artigos', artigo);
-        alert('Artigo criado com sucesso!');
+        const { data: novoArtigo } = await apiClient.post('/artigos', artigo);
+        toast.success('Artigo criado com sucesso!');
+        navigate(`/artigo/${novoArtigo.id}`);
       }
     } catch (error) {
       console.log({ error });
-      alert('Erro ao salvar artigo!');
+      toast.error('Erro ao salvar artigo!');
     }
   }
   
   const handleDelete = async () => {
     try {
       await apiClient.delete(`/artigos/${id}`);
-      alert('Artigo deletado com sucesso!');
+      toast.success('Artigo deletado com sucesso!');
+      navigate('/artigos');
     } catch (error) {
       console.log({ error });
-      alert('Erro ao deletar artigo!');
+      toast.error('Erro ao deletar artigo!');
     }
   }
 

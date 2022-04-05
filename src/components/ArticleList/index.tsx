@@ -1,5 +1,6 @@
 import React from "react";
 import { ArticleThumbnail } from "../ArticleThumbnail";
+import { EmptyMessage } from "../EmptyMessage";
 import { ArticleListProps } from "./ArticleList.types";
 
 export const ArticleList: React.FC<ArticleListProps> = ({
@@ -9,9 +10,7 @@ export const ArticleList: React.FC<ArticleListProps> = ({
     <div className="flex flex-col items-center justify-center m-10">
       {
         articles.length === 0 ? (
-          <div className="text-center text-gray-500 text-lg">
-            Não existem artigos publicados
-          </div>
+          <EmptyMessage />
         ) : (
           articles.map(article => (
             <ArticleThumbnail

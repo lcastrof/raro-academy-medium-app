@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ArticleThumbnailProps } from "../../components/ArticleThumbnail/ArticleThumbnail.types";
 import { ArticleView } from "../../components/ArticleView";
 import { Spinner } from "../../components/Spinner";
@@ -17,15 +18,21 @@ export const ArtigoPage = () => {
 
   useEffect(() => {
     async function loadArticle() {
-      setLoading(true);
-      const response = await apiClient.get<ArticleThumbnailProps>(`/artigos/${id}`);
-      const article = response.data.conteudo;
-      setAutor({ 
-        nome: response.data.autor.nome,
-        avatar: response.data.autor.avatar,
-      });
-      setArticle(article);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const response = await apiClient.get<ArticleThumbnailProps>(`/artigos/${id}`);
+        const article = response.data.conteudo;
+        setAutor({ 
+          nome: response.data.autor.nome,
+          avatar: response.data.autor.avatar,
+        });
+        setArticle(article);
+      } catch (error) {
+        toast.error('Erro ao carregar artigo');
+        console.log({ error });
+      } finally {
+        setLoading(false);
+      }
     }
     
     loadArticle();

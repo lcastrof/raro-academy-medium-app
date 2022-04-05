@@ -14,7 +14,7 @@ export const ArticleThumbnail: React.FC<ArticleThumbnailProps> = ({
 }) => {
   const [editavel, setEditavel] = useState(false);
   
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const usuarioAtual = Number(localStorage.getItem('id'));
@@ -58,7 +58,7 @@ export const ArticleThumbnail: React.FC<ArticleThumbnailProps> = ({
         {
           editavel && (
             <button
-              onClick={() => navigation(`/artigos/editar/${id}`)}
+              onClick={() => navigate(`/artigos/editar/${id}`)}
               className={
                 `
                 hover:bg-blue-400 bg-blue-300 text-white

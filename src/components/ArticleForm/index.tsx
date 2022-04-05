@@ -3,6 +3,7 @@ import { Button } from "../Button";
 import { Input } from "../Input";
 import { RitchTextEditor } from "../RitchTextEditor";
 import { ArticleThumbnailProps } from "../ArticleThumbnail/ArticleThumbnail.types";
+import { useNavigate } from "react-router-dom";
 
 type ArticleFormProps = {
   article?: ArticleThumbnailProps;
@@ -19,6 +20,12 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
   const [resumo, setResumo] = useState("");
   const [imagem, setImagem] = useState("");
   const [conteudo, setConteudo] = useState("");
+  const navigate = useNavigate();
+
+  const isEditing = !!article;
+  const greetingMessage = isEditing ? 
+    "basta alterar as informações para editá-las. Depois basta salvar." : 
+    "por favor preencha os dados e salve para continuar.";
 
   useEffect(() => {
     if (article) {
@@ -39,7 +46,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
         imagem,
         conteudo,
       };
-      onSubmit(articleToSubmit as ArticleThumbnailProps)
+      onSubmit(articleToSubmit as ArticleThumbnailProps);
     }
   }
 
@@ -52,12 +59,25 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
     };
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  }
+
   return (
     <div className="grid min-h-screen mx-10 ">
       <div>
+        <button 
+          className="
+            mb-3 text-blue-500 text-lg border-2 border-blue-500 p-1 rounded-md
+            hover:bg-blue-500 hover:text-white duration-100
+          " 
+          onClick={handleGoBack}
+        >
+          Voltar
+        </button>
         <h1 className="text-xl font-semibold">
-          Hello there 👋,&nbsp;
-          <span className="font-normal">please fill in your information to continue</span>
+          Olá 👋,&nbsp;
+          <span className="font-normal">{greetingMessage}</span>
         </h1>
         <form className="mt-6" onSubmit={handleSubmit}>
           <Input
@@ -70,7 +90,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
             required
           />
           <Input
-            placeholder="Breve rewsumo do artigo"
+            placeholder="Breve resumo do artigo"
             type="textarea"
             name="resumo"
             label="Resumo"
@@ -80,12 +100,12 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
           />
 
           <Input
-            placeholder="Breve rewsumo do artigo"
+            placeholder="Imagem da chamada do artigo"
             type="file"
             name="image"
             label="Banner"
             onChange={transformaImagemEmBase64}
-            required
+            required={!imagem}
           />
 
           <RitchTextEditor
@@ -96,7 +116,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
           />
 
           <div className="flex gap-8 w-full">
-            {article && <Button type="submit" isDelete onClick={onDelete}>Deletar</Button>}
+            {article && <Button type="button" color="red" onClick={onDelete}>Deletar</Button>}
             <Button type="submit">Salvar</Button>
           </div>
         </form>
